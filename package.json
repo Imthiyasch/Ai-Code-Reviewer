@@ -1,6 +1,10 @@
 {
   "name": "aicr-monorepo",
   "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
     "build:client": "npm run build --prefix client",
     "build:server": "npm run build --prefix server",
