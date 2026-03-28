@@ -1,6 +1,4 @@
-import React from 'react';
 import { createPortal } from 'react-dom';
-import { useToast } from '../../hooks/useToast';
 
 const icons = { success: '✓', error: '✕', info: 'ℹ' };
 

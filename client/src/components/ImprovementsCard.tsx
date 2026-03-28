@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import type { Improvement } from '../hooks/useReviews';
 import { Card } from './ui/Card';
 import { CodeBlock } from './CodeBlock';

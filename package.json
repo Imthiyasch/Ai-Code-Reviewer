@@ -1,0 +1,9 @@
+{
+  "name": "aicr-monorepo",
+  "private": true,
+  "scripts": {
+    "build:client": "npm run build --prefix client",
+    "build:server": "npm run build --prefix server",
+    "build": "npm run build:client && npm run build:server"
+  }
+}

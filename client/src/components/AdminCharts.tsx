@@ -1,7 +1,6 @@
-import React from 'react';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  BarChart, Bar, Cell, Legend,
+  BarChart, Bar, Cell,
 } from 'recharts';
 import { useTheme } from '../hooks/useTheme';
 

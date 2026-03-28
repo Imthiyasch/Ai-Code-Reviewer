@@ -57,4 +57,4 @@ export async function runMigrations() {
   }
 }
 
-export default { query };
+export default { query, runMigrations };

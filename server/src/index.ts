@@ -2,11 +2,11 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import { generalRateLimiter } from './middleware/rateLimiter.js';
-import authRouter from './routes/auth.js';
-import reviewsRouter from './routes/reviews.js';
-import adminRouter from './routes/admin.js';
-import { runMigrations } from './db/client.js';
+import { generalRateLimiter } from './middleware/rateLimiter';
+import authRouter from './routes/auth';
+import reviewsRouter from './routes/reviews';
+import adminRouter from './routes/admin';
+import { runMigrations } from './db/client';
 
 const app = express();
 const PORT = process.env.PORT ?? 3001;
@@ -59,16 +59,22 @@ app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
 // ─── 404 ──────────────────────────────────────────────────────────────────
 app.use((_req, res) => res.status(404).json({ error: 'Not found' }));
 
+// ─── Export for Vercel ───────────────────────────────────────────────────
+export default app;
+
 // ─── Start ────────────────────────────────────────────────────────────────
 async function start() {
   try {
     await runMigrations();
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
-    });
+    // Vercel handles the serverless execution, so only listen during local dev or non-Vercel envs
+    if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+      app.listen(PORT, () => {
+        console.log(`🚀 Server running on http://localhost:${PORT}`);
+      });
+    }
   } catch (err) {
     console.error('Failed to start server:', err);
-    process.exit(1);
+    if (!process.env.VERCEL) process.exit(1);
   }
 }
 

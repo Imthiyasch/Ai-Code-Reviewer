@@ -1,9 +1,9 @@
 import express, { Response, Router } from 'express';
-import { authenticate, AuthRequest } from '../middleware/authenticate.js';
-import { reviewRateLimiter } from '../middleware/rateLimiter.js';
-import { query } from '../db/client.js';
-import { analyzeCode } from '../services/llm.js';
-import { generateMarkdown } from '../services/export.js';
+import { authenticate, AuthRequest } from '../middleware/authenticate';
+import { reviewRateLimiter } from '../middleware/rateLimiter';
+import { query } from '../db/client';
+import { analyzeCode } from '../services/llm';
+import { generateMarkdown } from '../services/export';
 
 const router: Router = express.Router();
 router.use(authenticate);

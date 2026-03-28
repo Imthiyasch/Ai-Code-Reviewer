@@ -1,4 +1,4 @@
-import { ReviewResult } from './llm.js';
+import { ReviewResult } from './llm';
 
 interface FullReview {
   id: string;

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navbar } from '../components/Navbar';
 import { StatCard } from '../components/ui/StatCard';
 import { Avatar } from '../components/ui/Avatar';
-import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { Modal } from '../components/ui/Modal';
 import { ToastContainer } from '../components/ui/Toast';
@@ -52,79 +51,89 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div style={{ minHeight:'100vh' }}>
+    <div style={{ minHeight:'100vh', position: 'relative' }}>
+      <div className="app-background" />
       <Navbar />
       <ToastContainer toasts={toasts} removeToast={removeToast} />
 
-      <div className="page-container" style={{ paddingTop:32, paddingBottom:64 }}>
-        <div className="animate-fadeIn" style={{ marginBottom:32 }}>
-          <h1 style={{ marginBottom:4 }}>Admin Dashboard <span style={{ fontSize:14, color:'var(--color-text-3)', fontWeight:400 }}>🔐</span></h1>
-          <p style={{ color:'var(--color-text-2)' }}>Platform-wide analytics and user management</p>
+      <div className="page-container" style={{ paddingTop:40, paddingBottom:64 }}>
+        <div className="animate-fadeIn" style={{ marginBottom:40 }}>
+          <h1 style={{ marginBottom:4, fontSize: '32px' }}>Admin Dashboard <span style={{ fontSize:14, color:'var(--color-text-3)', fontWeight:400 }}>🔐</span></h1>
+          <p style={{ fontSize: '18px', color:'var(--color-text-2)' }}>Platform-wide analytics and user management</p>
         </div>
 
         {/* Stats row */}
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:16, marginBottom:32 }}>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:24, marginBottom:40 }}>
           <StatCard label="Total Reviews" value={stats?.totals?.total ?? '…'} icon="📝" color="var(--color-primary)" />
           <StatCard label="Reviews Today" value={stats?.totals?.today ?? '…'} icon="📅" color="var(--color-info)" />
           <StatCard label="This Week" value={stats?.totals?.this_week ?? '…'} icon="📊" color="var(--color-success)" />
         </div>
 
         {/* Charts */}
-        {stats && <div style={{ marginBottom:32 }}><AdminCharts daily={stats.daily ?? []} topBugs={stats.topBugs ?? []} /></div>}
+        {stats && <div style={{ marginBottom:40 }}><AdminCharts daily={stats.daily ?? []} topBugs={stats.topBugs ?? []} /></div>}
 
         {/* User table */}
-        <div style={{ background:'var(--color-surface)', border:'1px solid var(--color-border)', borderRadius:'var(--radius-lg)', overflow:'hidden' }}>
-          <div style={{ padding:'16px 20px', borderBottom:'1px solid var(--color-border)' }}>
-            <h3>All Users ({users.length})</h3>
+        <div className="glass animate-fadeIn" style={{ animationDelay: '0.1s', borderRadius:'var(--radius-xl)', overflow:'hidden' }}>
+          <div style={{ padding:'24px 32px', borderBottom:'1px solid rgba(0,0,0,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h3 style={{ margin: 0, fontSize: '20px' }}>Active Users ({users.length})</h3>
+            <button className="btn-pill" style={{ background: '#111', color: '#fff', fontSize: '13px', padding: '8px 20px' }} onClick={loadData}>
+              Refresh
+            </button>
           </div>
           {loading
-            ? <div style={{ padding:'8px 16px' }}>{Array.from({length:5}).map((_,i)=><SkeletonRow key={i} />)}</div>
+            ? <div style={{ padding:'40px 32px' }}>{Array.from({length:5}).map((_,i)=><SkeletonRow key={i} />)}</div>
             : (
               <div style={{ overflowX:'auto' }}>
-                <table className="data-table">
+                <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <thead>
-                    <tr>
-                      <th>User Name</th>
-                      <th>Login Time</th>
-                      <th>Work Done</th>
-                      <th>Result</th>
-                      <th>Role & Actions</th>
+                    <tr style={{ textAlign: 'left', background: 'rgba(0,0,0,0.02)' }}>
+                      <th style={{ padding: '16px 32px', fontSize: '12px', textTransform: 'uppercase', color: 'var(--color-text-3)' }}>User Identity</th>
+                      <th style={{ padding: '16px 12px', fontSize: '12px', textTransform: 'uppercase', color: 'var(--color-text-3)' }}>Last Seen</th>
+                      <th style={{ padding: '16px 12px', fontSize: '12px', textTransform: 'uppercase', color: 'var(--color-text-3)' }}>Activity</th>
+                      <th style={{ padding: '16px 12px', fontSize: '12px', textTransform: 'uppercase', color: 'var(--color-text-3)' }}>Score Avg</th>
+                      <th style={{ padding: '16px 32px', fontSize: '12px', textTransform: 'uppercase', color: 'var(--color-text-3)' }}>Management</th>
                     </tr>
                   </thead>
                   <tbody>
                     {users.map((u: any) => (
-                      <tr key={u.id}>
-                        <td>
-                          <div style={{ display:'flex', alignItems:'center', gap:12 }}>
-                            <Avatar src={u.avatar_url} name={u.name} size={32} />
+                      <tr key={u.id} style={{ borderBottom: '1px solid rgba(0,0,0,0.03)' }}>
+                        <td style={{ padding: '20px 32px' }}>
+                          <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+                            <Avatar src={u.avatar_url} name={u.name} size={40} />
                             <div>
-                              <div style={{ fontWeight:600, fontSize:14 }}>{u.name}</div>
-                              <div style={{ color:'var(--color-text-3)', fontSize:12 }}>{u.email}</div>
+                              <div style={{ fontWeight:700, fontSize:15, color: '#111' }}>{u.name}</div>
+                              <div style={{ color:'var(--color-text-3)', fontSize:13 }}>{u.email}</div>
                             </div>
                           </div>
                         </td>
-                        <td style={{ color:'var(--color-text-2)', fontSize:13 }}>
+                        <td style={{ padding: '20px 12px', color:'var(--color-text-2)', fontSize:14 }}>
                           {new Date(u.last_active_at).toLocaleString(undefined, {
                             dateStyle: 'medium', timeStyle: 'short'
                           })}
                         </td>
-                        <td>
-                          <div style={{ fontWeight:600, color:'var(--color-primary)'}}>
+                        <td style={{ padding: '20px 12px' }}>
+                          <span style={{ fontWeight:700, color:'var(--color-primary)', background: 'var(--color-primary-glow)', padding: '4px 12px', borderRadius: '100px', fontSize: '12px' }}>
                             {u.review_count} Reviews
-                          </div>
+                          </span>
                         </td>
-                        <td>
-                          <div style={{ fontWeight: 600, color: (u.avg_score >= 8 ? 'var(--color-success)' : u.avg_score >= 5 ? 'var(--color-warning)' : 'var(--color-danger)') }}>
+                        <td style={{ padding: '20px 12px' }}>
+                          <div style={{ fontWeight: 800, fontSize: '16px', color: (u.avg_score >= 8 ? 'var(--color-success)' : u.avg_score >= 5 ? 'var(--color-warning)' : 'var(--color-danger)') }}>
                             {u.avg_score ? `${u.avg_score} / 10` : '—'}
                           </div>
                         </td>
-                        <td>
-                          <div style={{ display:'flex', alignItems:'center', gap:10 }}>
+                        <td style={{ padding: '20px 32px' }}>
+                          <div style={{ display:'flex', alignItems:'center', gap:16 }}>
                             <Badge variant={u.role==='admin'?'high':'default'}>{u.role}</Badge>
                             {u.id !== user?.id && (
                               <button 
                                 className="btn-pill" 
-                                style={{ padding: '6px 12px', fontSize: '11px', background: 'var(--color-danger)', border: 'none', color: '#fff' }}
+                                style={{ 
+                                  padding: '8px 16px', fontSize: '12px', 
+                                  background: 'transparent', border: '1px solid var(--color-danger)', color: 'var(--color-danger)',
+                                  opacity: 0.6, transition: 'all 0.2s'
+                                }}
+                                onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--color-danger)'; e.currentTarget.style.color = '#fff'; e.currentTarget.style.opacity = '1'; }}
+                                onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--color-danger)'; e.currentTarget.style.opacity = '0.6'; }}
                                 onClick={()=>setDeleteTarget(u.id)}
                               >
                                 Delete
@@ -143,10 +152,16 @@ export default function AdminDashboard() {
       </div>
 
       <Modal open={!!deleteTarget} onClose={()=>setDeleteTarget(null)} title="Delete User">
-        <p style={{ marginBottom:20 }}>This will permanently delete the user and ALL their reviews. This cannot be undone.</p>
+        <p style={{ marginBottom:32, fontSize: '16px', lineHeight: 1.6, color: 'var(--color-text-2)' }}>
+          This will permanently delete the user and <strong>ALL</strong> their reviews from the database. This action is destructive and cannot be undone.
+        </p>
         <div style={{ display:'flex', gap:12, justifyContent:'flex-end' }}>
-          <Button variant="secondary" onClick={()=>setDeleteTarget(null)}>Cancel</Button>
-          <Button variant="danger" loading={deleting} onClick={handleDelete}>Delete User</Button>
+          <button className="btn-pill" style={{ background: 'transparent', border: '1px solid rgba(0,0,0,0.1)', color: '#111' }} onClick={()=>setDeleteTarget(null)}>
+            Keep User
+          </button>
+          <button className="btn-pill" style={{ background: 'var(--color-danger)', border: 'none', color: '#fff' }} onClick={handleDelete}>
+            {deleting ? 'Processing...' : 'Delete User Permanently'}
+          </button>
         </div>
       </Modal>
     </div>

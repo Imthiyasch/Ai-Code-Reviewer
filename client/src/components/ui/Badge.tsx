@@ -1,4 +1,4 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 
 type BadgeVariant = 'low' | 'medium' | 'high' | 'info' | 'default';
 
@@ -12,7 +12,7 @@ const styles: Record<BadgeVariant, string> = {
 
 interface BadgeProps {
   variant?: BadgeVariant;
-  children: React.ReactNode;
+  children: ReactNode;
   pulse?: boolean;
   className?: string;
 }

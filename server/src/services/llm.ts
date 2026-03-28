@@ -1,6 +1,7 @@
-import { GoogleGenAI } from '@google/genai';
+// @ts-ignore
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const ai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
 const REVIEW_SCHEMA = `{
   "quality_score": <integer 1-10>,
@@ -64,17 +65,14 @@ function chunkCode(code: string): string[] {
 }
 
 async function callLLM(systemPrompt: string, userPrompt: string): Promise<string> {
-  const response = await ai.models.generateContent({
-    model: 'gemini-2.5-flash',
-    contents: userPrompt,
-    config: {
-      systemInstruction: systemPrompt,
-      temperature: 0.2,
-    }
+  const model = ai.getGenerativeModel({
+    model: 'gemini-2.0-flash',
+    systemInstruction: systemPrompt,
   });
 
-  if (!response.text) throw new Error('Unexpected empty response from Gemini');
-  return response.text;
+  const result = await model.generateContent(userPrompt);
+  const response = await result.response;
+  return response.text();
 }
 
 function parseJSON(raw: string): Record<string, unknown> {

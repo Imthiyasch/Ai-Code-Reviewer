@@ -1,4 +1,3 @@
-import React from 'react';
 import type { DocItem } from '../hooks/useReviews';
 import { Card } from './ui/Card';
 import { Badge } from './ui/Badge';

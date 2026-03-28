@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { query } from '../db/client.js';
+import { query } from '../db/client';
 
 export interface AuthRequest extends Request {
   user?: {

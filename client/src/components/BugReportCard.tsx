@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import type { Bug } from '../hooks/useReviews';
 import { Card } from './ui/Card';
 import { Badge } from './ui/Badge';

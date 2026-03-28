@@ -1,7 +1,7 @@
 import express, { Response, Router } from 'express';
-import { authenticate, AuthRequest } from '../middleware/authenticate.js';
-import { requireAdmin } from '../middleware/requireAdmin.js';
-import { query } from '../db/client.js';
+import { authenticate, AuthRequest } from '../middleware/authenticate';
+import { requireAdmin } from '../middleware/requireAdmin';
+import { query } from '../db/client';
 
 const router: Router = express.Router();
 router.use(authenticate, requireAdmin);

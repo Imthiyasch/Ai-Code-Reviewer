@@ -1,8 +1,8 @@
 import express, { Request, Response, Router } from 'express';
 import jwt from 'jsonwebtoken';
 import { OAuth2Client } from 'google-auth-library';
-import { query } from '../db/client.js';
-import { authenticate, AuthRequest } from '../middleware/authenticate.js';
+import { query } from '../db/client';
+import { authenticate, AuthRequest } from '../middleware/authenticate';
 
 const router: Router = express.Router();
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);

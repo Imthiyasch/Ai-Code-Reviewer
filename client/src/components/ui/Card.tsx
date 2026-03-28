@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState, type ReactNode, type CSSProperties } from 'react';
 
 interface CardProps {
-  children: React.ReactNode;
+  children: ReactNode;
   collapsible?: boolean;
-  title?: React.ReactNode;
+  title?: ReactNode;
   className?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   defaultOpen?: boolean;
 }
 

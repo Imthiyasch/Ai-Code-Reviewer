@@ -1,14 +1,10 @@
-import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
-import { useTheme } from '../hooks/useTheme';
 import { Avatar } from './ui/Avatar';
-import { Button } from './ui/Button';
 import api from '../lib/api';
 
 export function Navbar() {
   const { user, logout: storeLogout } = useAuthStore();
-  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleLogout = async () => {

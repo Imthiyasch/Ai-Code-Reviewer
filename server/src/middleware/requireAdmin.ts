@@ -1,5 +1,5 @@
 import { Response, NextFunction } from 'express';
-import { AuthRequest } from './authenticate.js';
+import { AuthRequest } from './authenticate';
 
 export function requireAdmin(
   req: AuthRequest,
