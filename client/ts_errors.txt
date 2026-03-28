@@ -1,0 +1,29 @@
+src/App.tsx(5,8): error TS2613: Module '"C:/Users/imthi/Desktop/AI CR4/client/src/pages/Login"' has no default export. Did you mean to use 'import { Login } from "C:/Users/imthi/Desktop/AI CR4/client/src/pages/Login"' instead?
+src/components/AdminCharts.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/AdminCharts.tsx(4,24): error TS6133: 'Legend' is declared but its value is never read.
+src/components/AdminCharts.tsx(58,78): error TS2353: Object literal may only specify known properties, and 'textTransform' does not exist in type 'Props | ReactElement<unknown, string | JSXElementConstructor<any>> | ((props: XAxisTickContentProps) => ReactNode)'.
+src/components/BugReportCard.tsx(1,1): error TS6192: All imports in import declaration are unused.
+src/components/CodeBlock.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/CodeViewer.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/DocsCard.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/FileTree.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/components/FileTree.tsx(1,27): error TS6133: 'useCallback' is declared but its value is never read.
+src/components/ImprovementsCard.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/components/Navbar.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/Navbar.tsx(6,1): error TS6133: 'Button' is declared but its value is never read.
+src/components/Navbar.tsx(11,9): error TS6198: All destructured elements are unused.
+src/components/ReviewHistoryTable.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/components/ReviewHistoryTable.tsx(7,10): error TS6133: 'Skeleton' is declared but its value is never read.
+src/components/ui/Avatar.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/ui/Skeleton.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/ui/StatCard.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/ui/Toast.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/ui/Toast.tsx(3,1): error TS6133: 'useToast' is declared but its value is never read.
+src/hooks/useAuth.ts(4,1): error TS6133: 'useGoogleLogin' is declared but its value is never read.
+src/pages/AdminDashboard.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/Dashboard.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/NewReview.tsx(6,1): error TS6133: 'Badge' is declared but its value is never read.
+src/pages/NewReview.tsx(26,25): error TS6133: 'loading' is declared but its value is never read.
+src/pages/NewReview.tsx(42,23): error TS2554: Expected 1 arguments, but got 0.
+src/pages/NotFound.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/pages/ReviewDetail.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
