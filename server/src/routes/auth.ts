@@ -52,14 +52,27 @@ router.post('/google', async (req: Request, res: Response): Promise<void> => {
     );
 
     const user = result.rows[0];
-    const token = jwt.sign({ sub: user.id }, process.env.JWT_SECRET!, {
+    const jwtSecret = process.env.JWT_SECRET;
+
+    if (!jwtSecret) {
+      console.error('❌ JWT_SECRET is not set in environment variables');
+      res.status(500).json({ error: 'Server configuration error: Missing JWT_SECRET' });
+      return;
+    }
+
+    const token = jwt.sign({ sub: user.id }, jwtSecret, {
       expiresIn: '7d',
     });
 
     res.json({ token, user });
-  } catch (err) {
-    console.error('Auth error:', err);
-    res.status(401).json({ error: 'Authentication failed' });
+  } catch (err: any) {
+    console.error('Auth error details:', err.message || err);
+    // Ensure we ALWAYS return JSON
+    const message = err.message || 'Authentication failed internally';
+    res.status(500).json({ 
+      error: message,
+      details: process.env.NODE_ENV === 'development' ? err.stack : undefined
+    });
   }
 });
 

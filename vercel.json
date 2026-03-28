@@ -1,6 +1,12 @@
 {
   "version": 2,
   "outputDirectory": "public",
+  "functions": {
+    "server/src/index.ts": {
+      "runtime": "@vercel/node",
+      "memory": 1024
+    }
+  },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "server/src/index.ts" },
     { "source": "/(.*)", "destination": "/index.html" }

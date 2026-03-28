@@ -51,8 +51,10 @@ export function Login() {
                   try {
                     await loginWithCredential(res.credential);
                   } catch (err: any) {
-                    const msg = err.response?.data?.error || 'Server error. Check Vercel logs.';
-                    error(`Login Failed: ${msg}`);
+                    const data = err.response?.data;
+                    const msg = data?.error || 'Server error. Check Vercel logs.';
+                    const details = data?.details ? `\nDetails: ${data.details}` : '';
+                    error(`Login Failed: ${msg}${details}`);
                   }
                 }
               }}

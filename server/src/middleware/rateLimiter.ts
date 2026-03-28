@@ -9,7 +9,9 @@ export const reviewRateLimiter = rateLimit({
   message: {
     error: 'Rate limit exceeded. You can submit up to 10 reviews per hour.',
   },
-  keyGenerator: (req: any) => req.user?.id ?? req.ip,
+  keyGenerator: (req: any) => {
+    return req.user?.id || req.ip || req.headers['x-forwarded-for'] || 'unknown';
+  },
 });
 
 // General API rate limit (60 req/min)
