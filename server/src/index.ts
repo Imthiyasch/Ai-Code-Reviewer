@@ -14,6 +14,18 @@ const PORT = process.env.PORT ?? 3001;
 // ─── Vercel / Proxy setup ────────────────────────────────────────────────
 app.set('trust proxy', 1);
 
+// ─── Environment Audit ───────────────────────────────────────────────────
+const auditEnv = () => {
+  const required = ['DATABASE_URL', 'GOOGLE_CLIENT_ID', 'JWT_SECRET', 'GEMINI_API_KEY'];
+  const missing = required.filter(k => !process.env[k]);
+  if (missing.length > 0) {
+    console.warn(`[DIAGNOSTIC] Missing environment variables: ${missing.join(', ')}`);
+  } else {
+    console.log('[DIAGNOSTIC] All required environment variables are present');
+  }
+};
+auditEnv();
+
 // ─── Request Logger ──────────────────────────────────────────────────────
 app.use((req, _res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
