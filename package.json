@@ -8,6 +8,6 @@
   "scripts": {
     "build:client": "npm run build --prefix client",
     "build:server": "npm run build --prefix server",
-    "build": "npm run build:client && npm run build:server"
+    "build": "npm run build:client && npm run build:server && cp -r client/dist public"
   }
 }
