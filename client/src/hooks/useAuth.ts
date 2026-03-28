@@ -11,8 +11,9 @@ export function useAuth() {
       const res = await api.post('/auth/google', { credential });
       setAuth(res.data.user, res.data.token);
       navigate('/dashboard');
-    } catch {
-      console.error('Login failed');
+    } catch (err) {
+      console.error('Login hook failed:', err);
+      throw err;
     }
   };
 

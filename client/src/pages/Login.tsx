@@ -46,7 +46,16 @@ export function Login() {
             border: '1px solid var(--color-border-2)', display: 'inline-block'
           }}>
             <GoogleLogin
-              onSuccess={(res) => { if (res.credential) loginWithCredential(res.credential); }}
+              onSuccess={async (res) => { 
+                if (res.credential) {
+                  try {
+                    await loginWithCredential(res.credential);
+                  } catch (err: any) {
+                    const msg = err.response?.data?.error || 'Server error. Check Vercel logs.';
+                    error(`Login Failed: ${msg}`);
+                  }
+                }
+              }}
               onError={() => error('Google Login Failed')}
               shape="pill" size="large" theme="filled_black" text="continue_with"
             />
