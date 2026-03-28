@@ -49,7 +49,7 @@ app.use(
 
 // ─── CORS ─────────────────────────────────────────────────────────────────
 const allowedOrigins = [
-  process.env.VITE_APP_URL ?? 'http://localhost:5173',
+  process.env.APP_URL ?? 'http://localhost:5173',
   'http://localhost:5173',
 ];
 app.use(
@@ -75,8 +75,8 @@ app.use('/api/reviews', reviewsRouter);
 app.use('/api/admin', adminRouter);
 
 // ─── Health ───────────────────────────────────────────────────────────────
-app.get('/api/health', (_req, res) => res.json({ 
-  status: 'ok', 
+app.get('/api/health', (_req, res) => res.json({
+  status: 'ok',
   env: process.env.NODE_ENV,
   db: !!process.env.DATABASE_URL,
   vercel: !!process.env.VERCEL
