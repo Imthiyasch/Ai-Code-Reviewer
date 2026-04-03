@@ -10,9 +10,17 @@
     "checkJs": false,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     }
   },
-  "include": ["api/**/*", "server/src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "api/**/*",
+    "server/src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

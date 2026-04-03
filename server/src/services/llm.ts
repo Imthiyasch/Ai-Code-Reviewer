@@ -70,9 +70,24 @@ async function callLLM(systemPrompt: string, userPrompt: string): Promise<string
     systemInstruction: systemPrompt,
   });
 
-  const result = await model.generateContent(userPrompt);
-  const response = await result.response;
-  return response.text();
+  // Helper for exponential backoff on 429 errors
+  const executeWithRetry = async (retries = 3, delay = 2000): Promise<string> => {
+    try {
+      const result = await model.generateContent(userPrompt);
+      const response = await result.response;
+      return response.text();
+    } catch (err: any) {
+      const isRateLimit = err.message?.includes('429') || err.status === 429;
+      if (isRateLimit && retries > 0) {
+        console.warn(`[AI-THROTTLE] Rate limited. Retrying in ${delay}ms... (${retries} retries left)`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        return executeWithRetry(retries - 1, delay * 2);
+      }
+      throw err;
+    }
+  };
+
+  return executeWithRetry();
 }
 
 function parseJSON(raw: string): Record<string, unknown> {
@@ -153,8 +168,18 @@ export async function analyzeCode(
   const chunkResults: Record<string, unknown>[] = [];
 
   for (let i = 0; i < chunks.length; i++) {
+    // Add artificial delay between chunks to avoid immediate 429
+    if (i > 0) {
+      console.log(`[AI-THROTTLE] Waiting 1s before next chunk...`);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
     const result = await reviewChunk(chunks[i], language, i, chunks.length);
     chunkResults.push(result);
+  }
+
+  // Small delay before merging
+  if (chunks.length > 1) {
+    await new Promise(resolve => setTimeout(resolve, 1000));
   }
 
   const merged = await mergeChunkResults(chunkResults);
