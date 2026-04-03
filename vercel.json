@@ -3,7 +3,7 @@
   "outputDirectory": "public",
   "functions": {
     "api/index.ts": {
-      "runtime": "@vercel/node",
+      "runtime": "@vercel/node@3",
       "memory": 1024
     }
   },
